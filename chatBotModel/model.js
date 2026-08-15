@@ -13,7 +13,21 @@ const messageSchema = new mongoose.Schema({
 });
 
 const chatSchema = new mongoose.Schema({
-    messages: [messageSchema]
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    messages: [messageSchema],
+    isShared: {
+        type: Boolean,
+        default: false
+    },
+    shareId: {
+        type: String,
+        unique: true,
+        sparse: true
+    }
 }, { timestamps: true });
 
 export default mongoose.model('Chat', chatSchema);
